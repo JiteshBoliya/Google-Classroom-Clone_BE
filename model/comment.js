@@ -1,29 +1,27 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const postSchema = new mongoose.Schema({
+const commentSchema = new mongoose.Schema({
     text: {
         type: String,
         required: true,
     },
-    // file:{
-    //     type: String,
-    // },
+    time : { 
+        type: Number, 
+        default: (new Date()).getTime() 
+    },
     owner:{
         type:mongoose.Schema.Types.ObjectId,
         // required:true,
         ref:'User'
     },
-    classsub:{
+    post:{
         type:mongoose.Schema.Types.ObjectId,
         // required:true,
-        ref:'Class'
-    },time : { 
-        type: Number, 
-        default: (new Date()).getTime() 
+        ref:'Post'
     }
 },{timeStamp:true}
 );
-const Post= mongoose.model("Post",postSchema);
-module.exports = Post
+const Comment= mongoose.model("Comment",commentSchema);
+module.exports = Comment
 
