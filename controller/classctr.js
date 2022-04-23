@@ -1,4 +1,3 @@
-const Class = require('../model/class')
 const classsub = require('../model/class')
 
 // #Get class by userid
@@ -19,8 +18,9 @@ exports.get_classDetail=async function(req, res){
 
 // #Get class by code
 exports.get_classCode= async function(req, res){
-    const ClassSub=classsub.find({owner:req.params.code},function(err,data){
-        if (err) res.status(400).send({ error: err.message })
+    console.log(req.params);
+    const ClassSub=classsub.findOne({code:req.params.code},function(err,data){
+        if (err) res.status(400).send({ error: err.message})
         res.status(200).send(data)     
     })
 }
@@ -36,34 +36,7 @@ exports.set_class=async function(req, res){
     }
 }
 
-// #update Class
-// exports.update_class = async (req, res) => {
-//     const updates = Object.keys(req.body)
-//     const allowUpdates = ['name', 'subject']
-//     const isValidOpration = updates.every((update) => allowUpdates.includes(update))
-//     if (!isValidOpration) return res.status(401).send({ error: "InValid opration" })
-//     try {
-//         const classs = await Class.findOne({ _id: req.body.id, owner: req.user._id })
-//         if (!classs) return res.status(400).send({ error: "Product not found" })
-//         updates.forEach((update) => classs[update] = req.body[update])
-//         await classs.save()
-//         res.send(classs)
-//     } catch (error) {
-//         res.status(500).send({ error: error.message })
-//     }
-// }
-
-// // #delete Class
-// exports.delete_class = async (req, res) => {
-//     try {
-//         const classs = await Class.findByIdAndDelete({ _id: req.body.id, owner: req.user._id })
-//         if (!classs) res.status(404).send({ error: error.message })
-//         res.status(200).send({ success: "Deleted...." })
-//     } catch (error) {
-//         res.status(500).send({ error: error.message })
-//     }
-// }
-
+// #class code genrator
 const makeid=()=>{
     let text = "";
     let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

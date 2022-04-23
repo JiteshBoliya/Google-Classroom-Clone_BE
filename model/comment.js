@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const commentSchema = new mongoose.Schema({
-    text: {
+    comment: {
         type: String,
         required: true,
     },
@@ -15,7 +15,7 @@ const commentSchema = new mongoose.Schema({
         // required:true,
         ref:'User'
     },
-    post:{
+    postId:{
         type:mongoose.Schema.Types.ObjectId,
         // required:true,
         ref:'Post'

@@ -8,22 +8,15 @@ const router = new express.Router()
 const multer = require('multer')
 const fromdata = multer()
 
-// #Add Class
+// #Add/Create Class
 router.post('/class',auth, fromdata.none() ,classctr.set_class)
 
-// #Get Class
+// #Get Created Class
 router.get('/class/get/:id',auth,classctr.get_class)
 
-// #Get class by code
-router.get('/class/getcode/:code',auth,classctr.get_classCode)
-
-// #join class
-router.post('/Joinclass',auth, fromdata.none() ,classlistctr.set_classlist)
-
-// #show joined class
-router.get('/class/get/:id',auth,classlistctr.get_classlist)
-
-// #Get classdetail by classid 
+// #Get Classdetail by classid 
 router.get('/class/getclass/:id',auth,classctr.get_classDetail)
 
+// #Get class details based on code
+router.get('/class/code/join/:code',auth,classctr.get_classCode)
 module.exports = router

@@ -4,24 +4,22 @@ const validator = require("validator");
 const assignmentSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true,
+        // required: true,
     },
-    Description:{
+    description:{
         type:String,
-        required:true
+        // required:true
     },
     time : { 
+        //uploaded time
         type: Number, 
         default: (new Date()).getTime() 
-    },
-    file:{
-        type: String,
     },
     points:{
         type:Number,
     },
     duedate:{
-        type: Number, 
+        type: Date, 
     },
     owner:{
         type:mongoose.Schema.Types.ObjectId,
@@ -32,7 +30,10 @@ const assignmentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         // required:true,
         ref:'Class'
-    }
+    },
+    file:[{
+        type: Object,
+    }]
 },{timeStamp:true}
 );
 const Assignment= mongoose.model("Assignment",assignmentSchema);
