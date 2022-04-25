@@ -13,7 +13,7 @@ exports.get_classDetail=async function(req, res){
     const ClassSub=classsub.find({_id:req.params.id},function(err,data){
         if (err) res.status(400).send({ error: err.message })
         res.status(200).send(data)     
-    })
+    }).populate("owner","name")
 }
 
 // #Get class by code

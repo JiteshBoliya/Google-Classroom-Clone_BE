@@ -16,7 +16,8 @@ exports.join_class = async (req,res) => {
 
 // #Get user list
 exports.get_userlist= async function(req, res){
-    classlist.find({class:req.body.class},(err,data)=>{
+    console.log(req.params.id);
+    classlist.find({class:req.params.id},(err,data)=>{
         if (err) res.status(400).send({ error: err.message })
         res.status(200).send(data)     
     }) .populate("user","name")

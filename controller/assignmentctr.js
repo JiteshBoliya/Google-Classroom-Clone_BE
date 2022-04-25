@@ -18,7 +18,13 @@ exports.get_assignment= async function(req, res){
         if (err) res.status(400).send({ error: err.message })
         res.status(200).send(data)     
     })
-}   
+}
+exports.get_AllAssignment= async function(req, res){
+    const assignment=Assignment.find({},(err,data)=>{
+        if (err) res.status(400).send({ error: err.message })
+        res.status(200).send(data)     
+    })
+}
 exports.get_specific_assignment= async function(req, res){
     const assignment=Assignment.find({_id:req.params.id},(err,data)=>{
         if (err) res.status(400).send({ error: err.message })

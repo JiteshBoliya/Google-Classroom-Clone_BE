@@ -23,6 +23,10 @@ router.post('/assignment',auth,upload.array("file",5),assignmentctr.Add_assignme
 // #Get Assignment
 router.get('/assignment/get/:id',auth,assignmentctr.get_assignment)
 
+
+// #Get all Assignment
+router.get('/assignment/get',auth,assignmentctr.get_AllAssignment)
+
 // #Get specific Asiignment
 router.get('/assignment/getsp/:id',auth,assignmentctr.get_specific_assignment)
 

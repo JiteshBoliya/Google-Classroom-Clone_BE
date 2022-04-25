@@ -5,7 +5,7 @@ exports.get_post= async function(req, res){
     const Post=post.find({classsub:req.params.id},(err,data)=>{
         if (err) res.status(400).send({ error: err.message })
         res.status(200).send(data)     
-    }).populate("owner","name")
+    })?.populate("owner","name")
 }   
 
 // #Add post

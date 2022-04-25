@@ -1,6 +1,14 @@
 const req = require("express/lib/request");
 const users = require("../model/user");
 
+// #get all users
+exports.get_allUsers=async function (req, res) {
+  const Users = users.find({}, function (err, data) {
+    if (err) res.status(400).send({ error: err.message });
+    res.status(200).send(data);
+  });
+};
+
 // #Get user by token
 exports.get_users = async function (req, res) {
   const Users = users.find({}, function (err, data) {
