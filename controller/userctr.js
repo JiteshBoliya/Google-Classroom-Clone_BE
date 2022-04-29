@@ -17,7 +17,6 @@ exports.get_users = async function (req, res) {
   });
 };
 
-
 // #Add user
 exports.set_user = async (req,res) => {
   var query = {name:req.body.name,email:req.body.email},

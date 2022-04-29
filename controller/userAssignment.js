@@ -1,25 +1,35 @@
 const UserAssignment = require('../model/userassignment');
 const Assignment = require('../model/assignment')
+
+
 // #upload assignment
-exports.upload_assignment=async function(req,res){
-    try {
-    const assignment=new UserAssignment({
-        ...req.body,
-        file:req.files
-    })
-    await assignment.save()
-        res.status(201).send({assignment})        
-    } catch (error) {
-        res.status(400).send({error: error.message})
-    }
-}
+// exports.upload_assignment=async function(req,res){
+//     try {
+//     const assignment=new UserAssignment({
+//         ...req.body,
+//         file:req.files
+//     })
+//     await assignment.save()
+//         res.status(201).send({assignment})        
+//     } catch (error) {
+//         res.status(400).send({error: error.message})
+//     }
+// }
 
 // #Get Assignment
 exports.get_assignment= async function(req, res){   
     const assignment=UserAssignment.find({assignment:req.params.id},(err,data)=>{
         if (err) res.status(400).send({ error: err.message })
         res.status(200).send(data)     
-    })
+    }).populate("owner","name")
+}   
+
+exports.get_AssignmentStatus=async function(req, res){   
+    console.log(req.params.id);
+    const assignment=UserAssignment.find({assignment:req.params.id},(err,data)=>{
+        if (err) res.status(400).send({ error: err.message })
+        res.status(200).send(data)     
+    }).populate("owner","name")
 }   
 
 // #Get Assignment by status  :: creater
@@ -44,4 +54,15 @@ exports.sort_assignment_byduedate= async function(req, res){
         if (err) res.status(400).send({ error: err.message })
         res.status(200).send(data)     
     }).sort({duedate:1})
+}
+
+// #Assignment status
+
+// #count Status
+exports.Count_assignmentStatus=async function(req, res){
+    console.log(req.params);
+    const assignment=UserAssignment.where({status:req.params.status,assignment:req.params.assignment}).count((err,data)=>{
+        if (err) res.status(400).send({ error: err.message })
+        res.status(200).send({data})
+    })
 }

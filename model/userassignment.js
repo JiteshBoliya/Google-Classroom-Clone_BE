@@ -3,7 +3,7 @@ const validator = require("validator");
 
 const userAssignmentSchema = new mongoose.Schema({
     time : { 
-        type: Number, 
+        type: Date, 
         default: (new Date()).getTime() 
     },
     owner:{

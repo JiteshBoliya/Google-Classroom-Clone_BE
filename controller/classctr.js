@@ -8,6 +8,14 @@ exports.get_class= async function(req, res){
     })
 }
 
+// #get userid by classid
+exports.get_userid= async function(req, res){
+    const user=classsub.find({_id:req.params.classid},function(err,data){
+        if (err) res.status(400).send({ error: err.message })
+        res.status(200).send(data)     
+    })
+}
+
 // #Get classDetails
 exports.get_classDetail=async function(req, res){
     const ClassSub=classsub.find({_id:req.params.id},function(err,data){
@@ -18,7 +26,6 @@ exports.get_classDetail=async function(req, res){
 
 // #Get class by code
 exports.get_classCode= async function(req, res){
-    console.log(req.params);
     const ClassSub=classsub.findOne({code:req.params.code},function(err,data){
         if (err) res.status(400).send({ error: err.message})
         res.status(200).send(data)     

@@ -4,11 +4,11 @@ const validator = require("validator");
 const postSchema = new mongoose.Schema({
     text: {
         type: String,
-        required: true,
+        // required: true,
     },
-    // file:{
-    //     type: String,
-    // },
+    file:{
+        type: Object,
+    },
     owner:{
         type:mongoose.Schema.Types.ObjectId,
         // required:true,
@@ -19,7 +19,7 @@ const postSchema = new mongoose.Schema({
         // required:true,
         ref:'Class'
     },time : { 
-        type: Number, 
+        type: Date, 
         default: (new Date()).getTime() 
     }
 },{timeStamp:true}

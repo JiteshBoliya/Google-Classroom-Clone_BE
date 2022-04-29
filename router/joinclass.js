@@ -9,6 +9,7 @@ const multer = require('multer')
 const userAssignment = require('../model/userassignment')
 const userassignment= require('../controller/userAssignment')
 const fromdata = multer()
+const path = require("path");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -20,11 +21,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});   
 
+
+//=========== basic fatch data =================
+
 // #Get Class Details
 router.get('/class/get/:id',auth,classctr.get_class)
-
-// #join class
-router.post('/class/join',auth,classlistctr.join_class)
 
 // #list of user for class
 router.get('/class/userlist/:id',auth,classlistctr.get_userlist)
@@ -32,16 +33,33 @@ router.get('/class/userlist/:id',auth,classlistctr.get_userlist)
 // #list of class for user
 router.get('/class/classlist/:id',auth,classlistctr.get_classslist)
 
-// #upload Assignment for user
-router.post('/class/userssignment',auth,upload.array("file",5),classlistctr.upload_assignment)
-
 // #Get all assignment by status
-router.get('/class/assignment/bystatus/:id',userassignment.show_assignment_byStatus) 
+router.get('/class/assignment/bystatus/:id',auth,userassignment.show_assignment_byStatus) 
+
+// #Get assignment Status
+router.get('/assignment/getStatus/:id',auth,userassignment.get_assignment)
+
+// #Get count status
+router.get('/assignment/count/status/:status/:assignment',auth,userassignment.Count_assignmentStatus)
+
+// #Get user assignment details
+router.get('/assignment/userAssignment/get',auth,classlistctr.get_UserAssignmentUpdate)
+
+
+//==================== create =====================
+
+// #join class
+router.post('/class/join',auth,classlistctr.join_class)
+
+// #upload Assignment for user
+router.post('/assignment/userAssignment',auth,upload.array("file",5),classlistctr.upload_assignment)
+
+//===================== sort ====================
 
 // #sort all assignment by status
-router.get('/class/assignment/sortbystatus/:id',userassignment.sort_assignment_byStatus)
+router.get('/class/assignment/sortbystatus/:id',auth,userassignment.sort_assignment_byStatus)
 
 // #sort all assignment by duedate
-router.get('/class/assignment/sortbyduedate/:id',userassignment.sort_assignment_byduedate)
+router.get('/class/assignment/sortbyduedate/:id',auth,userassignment.sort_assignment_byduedate)
 
 module.exports = router

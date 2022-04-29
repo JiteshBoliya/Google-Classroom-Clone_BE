@@ -5,6 +5,7 @@ const assignmentctr=require('../controller/assignmentctr')
 const auth =require('../middleware/auth')
 const multer = require("multer");
 const path = require("path");
+const UserAssignment = require('../model/userassignment')
 
 
 const storage = multer.diskStorage({
@@ -23,7 +24,6 @@ router.post('/assignment',auth,upload.array("file",5),assignmentctr.Add_assignme
 // #Get Assignment
 router.get('/assignment/get/:id',auth,assignmentctr.get_assignment)
 
-
 // #Get all Assignment
 router.get('/assignment/get',auth,assignmentctr.get_AllAssignment)
 
@@ -31,6 +31,9 @@ router.get('/assignment/get',auth,assignmentctr.get_AllAssignment)
 router.get('/assignment/getsp/:id',auth,assignmentctr.get_specific_assignment)
 
 // #Get all user assignment 
-router.get('/assignment/user/all/assignment/:id',assignmentctr.get_alluser_assignment)
+router.get('/assignment/user/all/assignment/:id',auth,assignmentctr.get_alluser_assignment)
+
+// #get class id by assignment
+router.get('/assignment/getclass/:id',auth,assignmentctr.get_class)
 
 module.exports = router 

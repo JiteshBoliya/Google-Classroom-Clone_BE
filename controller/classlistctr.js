@@ -1,5 +1,6 @@
 const classlist = require('../model/ClassList');
 const UserAssignment = require('../model/userassignment');
+const Assignment= require('../model/assignment')
 
 // #Add user
 exports.join_class = async (req,res) => {
@@ -33,15 +34,29 @@ exports.get_classslist= async function(req, res){
 
 // #upload assignment
 exports.upload_assignment=async function(req,res){
-    try {
-    const assignment=new UserAssignment({
-        ...req.body,
-        file:req.files
+    let currentstatus="handed In"
+    
+    let currenttime=new Date()
+    Assignment.find({_id:req.body.assignment},(err,data)=>{
+        if(data[0].duedate<currenttime){
+            currentstatus="Done late"
+        }
+        var query = {owner:req.body.owner,assignment:req.body.assignment},
+      update = {file:req.files,time:currenttime,status:currentstatus},
+      options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+    // #Find the document
+    UserAssignment.findOneAndUpdate(query, update, options, function (error, result) {
+      if (error) return;
+      res.send({result});
+    }); 
     })
-    await assignment.save()
-        res.status(201).send({assignment})        
-    } catch (error) {
-        res.status(400).send({error: error.message})
-    }
 }
 
+ // #User Assignment updates
+exports.get_UserAssignmentUpdate=async function(req, res){
+    UserAssignment.find({owner:req.body.ownerId,assignment:req.body.assignmentId},(err,data)=>{
+        if (err) res.status(400).send({ error: err.message })
+        res.status(200).send(data)     
+    })
+}   
