@@ -45,6 +45,10 @@ router.get('/assignment/count/status/:status/:assignment',auth,userassignment.Co
 // #Get user assignment details
 router.get('/assignment/userAssignment/get',auth,classlistctr.get_UserAssignmentUpdate)
 
+// #Get user assignment details
+router.get('/assignment/userAssignment/get/all/:class',auth,userassignment.get_Allassignment)
+
+router.get('/assignment/userAssignment/get/:id/:name',auth,userassignment.get_Userassignment)
 
 //==================== create =====================
 

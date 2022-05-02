@@ -1,21 +1,6 @@
 const UserAssignment = require('../model/userassignment');
 const Assignment = require('../model/assignment')
 
-
-// #upload assignment
-// exports.upload_assignment=async function(req,res){
-//     try {
-//     const assignment=new UserAssignment({
-//         ...req.body,
-//         file:req.files
-//     })
-//     await assignment.save()
-//         res.status(201).send({assignment})        
-//     } catch (error) {
-//         res.status(400).send({error: error.message})
-//     }
-// }
-
 // #Get Assignment
 exports.get_assignment= async function(req, res){   
     const assignment=UserAssignment.find({assignment:req.params.id},(err,data)=>{
@@ -23,6 +8,14 @@ exports.get_assignment= async function(req, res){
         res.status(200).send(data)     
     }).populate("owner","name")
 }   
+
+// #Get all Assignment
+exports.get_Allassignment= async function(req, res){   
+    const assignment=UserAssignment.find({classsub:req.params.class},(err,data)=>{
+        if (err) res.status(400).send({ error: err.message })
+        res.status(200).send(data)     
+    }).populate("assignment","classsub")
+}
 
 exports.get_AssignmentStatus=async function(req, res){   
     console.log(req.params.id);
@@ -65,4 +58,15 @@ exports.Count_assignmentStatus=async function(req, res){
         if (err) res.status(400).send({ error: err.message })
         res.status(200).send({data})
     })
+}
+
+
+// #Get assignment by id
+exports.get_Userassignment= async function(req, res){   
+    const assignment=UserAssignment.find({assignment:req.params.id,owner:req.params.name},(err,data)=>{
+        if (err) res.status(400).send({ error: err.message })
+        console.log(data);
+        console.log("hery");
+        res.status(200).send(data)     
+    }).populate("owner","name").populate("assignment")
 }

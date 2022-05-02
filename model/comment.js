@@ -19,6 +19,15 @@ const commentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         // required:true,
         ref:'Post'
+    },
+    assignmentId:{
+        type:mongoose.Schema.Types.ObjectId,
+        // required:true,
+        ref:'Assignment'
+    },
+    private:{
+        type:Boolean,
+        default:false
     }
 },{timeStamp:true}
 );
